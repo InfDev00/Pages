@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>나의 블로그</title>
+    <title>InfDev00</title>
     <style>
       :root {
         font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-        color: #222;
+        color: #202124;
         background-color: #f5f5f7;
+        --accent: #2f68ff;
+        --accent-soft: rgba(47, 104, 255, 0.08);
       }
 
       * {
@@ -17,7 +19,13 @@
 
       body {
         margin: 0;
+        min-height: 100vh;
         background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+        font-size: 18px;
+        color: inherit;
+        display: flex;
+        justify-content: center;
+        padding: clamp(1.5rem, 4vw, 3rem) 1.2rem;
       }
 
       a {
@@ -25,438 +33,608 @@
         text-decoration: none;
       }
 
-      header {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        backdrop-filter: blur(12px);
-        background: rgba(255, 255, 255, 0.75);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      }
-
       .container {
-        width: min(1100px, 92vw);
+        width: min(1120px, 96vw);
         margin: 0 auto;
       }
 
-      .nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1.2rem 0;
-      }
-
-      .logo {
-        font-weight: 700;
-        font-size: 1.25rem;
-        letter-spacing: -0.01em;
-      }
-
-      nav ul {
-        display: flex;
-        gap: 1.2rem;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      nav a {
-        font-size: 0.95rem;
-        font-weight: 500;
-        opacity: 0.75;
-        transition: opacity 0.2s ease;
-      }
-
-      nav a:hover,
-      nav a:focus {
-        opacity: 1;
-      }
-
-      .hero {
+      .app-shell {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 2.5rem;
-        align-items: center;
-        padding: 4rem 0 3.5rem;
+        grid-template-columns: 320px minmax(0, 1fr);
+        gap: clamp(2rem, 4vw, 3.5rem);
+        align-items: flex-start;
       }
 
-      .hero-text h1 {
-        font-size: clamp(2.5rem, 4vw, 3.4rem);
-        margin: 0 0 1rem;
-        line-height: 1.2;
-        letter-spacing: -0.04em;
+      @media (max-width: 900px) {
+        .app-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .preview {
+          order: 2;
+        }
+
+        .sidebar {
+          position: static;
+        }
       }
 
-      .hero-text p {
-        font-size: 1.05rem;
-        color: #555;
-        margin: 0 0 2rem;
-        line-height: 1.7;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-
-      .btn {
-        padding: 0.85rem 1.4rem;
-        border-radius: 999px;
-        font-weight: 600;
-        font-size: 0.95rem;
-        border: none;
-        cursor: pointer;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .btn-primary {
-        background: #2f68ff;
-        color: #fff;
-        box-shadow: 0 12px 24px rgba(47, 104, 255, 0.28);
-      }
-
-      .btn-outline {
-        background: #fff;
-        border: 1px solid rgba(47, 104, 255, 0.4);
-        color: #2f68ff;
-      }
-
-      .btn:hover,
-      .btn:focus {
-        transform: translateY(-2px);
-      }
-
-      .hero-image {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .hero-image::before {
-        content: "";
+      input[type="radio"] {
         position: absolute;
-        width: 78%;
-        height: 78%;
-        border-radius: 32px;
-        background: linear-gradient(135deg, rgba(47, 104, 255, 0.18), rgba(255, 255, 255, 0));
-        filter: blur(1px);
-        z-index: 0;
+        opacity: 0;
+        pointer-events: none;
       }
 
-      .hero-card {
-        position: relative;
-        background: #fff;
-        padding: 2rem;
-        border-radius: 32px;
-        box-shadow: 0 30px 60px rgba(15, 20, 40, 0.08);
-        width: min(340px, 100%);
-        display: grid;
-        gap: 0.75rem;
-        z-index: 1;
-      }
-
-      .hero-card span {
-        font-size: 0.85rem;
-        color: #2f68ff;
-        font-weight: 600;
-      }
-
-      .hero-card strong {
-        font-size: 1.1rem;
-      }
-
-      .section-title {
+      .sidebar {
+        position: sticky;
+        top: clamp(1rem, 3vw, 2rem);
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1.6rem;
+        flex-direction: column;
+        gap: 2rem;
+        background: rgba(255, 255, 255, 0.82);
+        padding: clamp(1.6rem, 3vw, 2.2rem);
+        border-radius: 24px;
+        box-shadow: 0 24px 48px rgba(15, 23, 42, 0.08);
+        backdrop-filter: blur(10px);
       }
 
-      .section-title h2 {
+      .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.75rem;
+      }
+
+      .avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ffdede, #c7d6ff);
+        display: grid;
+        place-items: center;
+        font-size: 2.6rem;
+        font-weight: 700;
+        color: #5a4b6c;
+      }
+
+      .profile h1 {
+        font-size: 1.45rem;
         margin: 0;
-        font-size: 1.7rem;
         letter-spacing: -0.02em;
       }
 
-      .section-title a {
-        font-size: 0.9rem;
-        color: #2f68ff;
-        font-weight: 600;
-      }
-
-      .featured-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 1.8rem;
-      }
-
-      .card {
-        background: #fff;
-        border-radius: 24px;
-        padding: 1.8rem;
-        box-shadow: 0 18px 40px rgba(35, 48, 90, 0.08);
-        display: grid;
-        gap: 1rem;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 26px 52px rgba(35, 48, 90, 0.12);
-      }
-
-      .card span {
-        font-size: 0.82rem;
-        color: #2f68ff;
-        font-weight: 600;
-      }
-
-      .card h3 {
+      .profile p {
         margin: 0;
-        font-size: 1.2rem;
-        letter-spacing: -0.01em;
-      }
-
-      .card p {
-        margin: 0;
-        color: #555;
-        line-height: 1.6;
+        color: #5f6368;
         font-size: 0.95rem;
       }
 
-      .meta {
+      .socials {
         display: flex;
-        gap: 1.2rem;
-        font-size: 0.85rem;
-        color: #777;
+        gap: 0.75rem;
+        margin-top: 0.5rem;
       }
 
-      .category-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 1.2rem;
+      .socials a {
+        font-size: 0.95rem;
+        color: #5f6368;
+        padding: 0.35rem 0.65rem;
+        border-radius: 999px;
+        background: rgba(95, 99, 104, 0.08);
+        transition: background 0.2s ease;
       }
 
-      .category {
-        background: rgba(47, 104, 255, 0.08);
-        color: #2f68ff;
-        border-radius: 16px;
-        padding: 1.2rem 1.4rem;
-        display: grid;
+      .socials a:hover,
+      .socials a:focus {
+        background: rgba(95, 99, 104, 0.15);
+      }
+
+      .indexer h2 {
+        margin: 0 0 0.75rem;
+        font-size: 1.1rem;
+        letter-spacing: -0.01em;
+      }
+
+      .tree-group {
+        margin: 1.2rem 0 0.6rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #4a4f55;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .tree-item {
+        display: flex;
+        flex-direction: column;
         gap: 0.3rem;
       }
 
-      .category strong {
-        font-size: 1.05rem;
+      .tree-item label {
+        display: block;
+        padding: 0.65rem 0.85rem;
+        border-radius: 14px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
       }
 
-      .newsletter {
-        margin: 4rem 0 5rem;
-        background: #141927;
-        color: #f8f9ff;
-        border-radius: 32px;
-        padding: clamp(2rem, 5vw, 3.5rem);
-        display: grid;
-        gap: 1.2rem;
+      .tree-item label:hover,
+      .tree-item label:focus {
+        background: rgba(47, 104, 255, 0.12);
       }
 
-      .newsletter h2 {
+      .depth-1 {
+        padding-left: 1.8rem !important;
+        font-size: 0.95rem !important;
+      }
+
+      .depth-2 {
+        padding-left: 3rem !important;
+        font-size: 0.92rem !important;
+      }
+
+      .tree-item label::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin-right: 0.5rem;
+        border-radius: 50%;
+        background: rgba(32, 33, 36, 0.25);
+        vertical-align: middle;
+      }
+
+      .depth-0::before {
+        background: var(--accent);
+      }
+
+      #view-all:checked ~ .sidebar label[for="view-all"],
+      #view-project-web:checked ~ .sidebar label[for="view-project-web"],
+      #view-project-mobile:checked ~ .sidebar label[for="view-project-mobile"],
+      #view-learning-kotlin:checked ~ .sidebar label[for="view-learning-kotlin"],
+      #view-learning-js:checked ~ .sidebar label[for="view-learning-js"],
+      #view-life-travel:checked ~ .sidebar label[for="view-life-travel"],
+      #view-life-routine:checked ~ .sidebar label[for="view-life-routine"] {
+        background: var(--accent);
+        color: #fff;
+        transform: translateX(6px);
+      }
+
+      #view-all:checked ~ .sidebar label[for="view-all"]::before,
+      #view-project-web:checked ~ .sidebar label[for="view-project-web"]::before,
+      #view-project-mobile:checked ~ .sidebar label[for="view-project-mobile"]::before,
+      #view-learning-kotlin:checked ~ .sidebar label[for="view-learning-kotlin"]::before,
+      #view-learning-js:checked ~ .sidebar label[for="view-learning-js"]::before,
+      #view-life-travel:checked ~ .sidebar label[for="view-life-travel"]::before,
+      #view-life-routine:checked ~ .sidebar label[for="view-life-routine"]::before {
+        background: #fff;
+      }
+
+      .preview {
+        display: flex;
+        flex-direction: column;
+        gap: 2.2rem;
+      }
+
+      .preview > header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .preview > header h1 {
         margin: 0;
-        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        font-size: clamp(2.1rem, 5vw, 2.75rem);
+        letter-spacing: -0.03em;
+      }
+
+      .preview > header p {
+        margin: 0;
+        color: #5f6368;
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+
+      .preview-section {
+        display: none;
+        flex-direction: column;
+        gap: 1.4rem;
+      }
+
+      .post-card {
+        padding: 1.6rem 1.8rem;
+        border-radius: 22px;
+        background: #fff;
+        box-shadow: 0 22px 45px rgba(15, 23, 42, 0.07);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .post-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 32px 55px rgba(15, 23, 42, 0.12);
+      }
+
+      .post-meta {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        font-size: 0.92rem;
+        color: #6c7178;
+        margin-bottom: 0.6rem;
+      }
+
+      .post-title {
+        margin: 0 0 0.5rem;
+        font-size: 1.45rem;
         letter-spacing: -0.02em;
       }
 
-      .newsletter p {
+      .post-excerpt {
         margin: 0;
-        color: rgba(255, 255, 255, 0.75);
-        line-height: 1.6;
-        font-size: 0.95rem;
+        color: #555a61;
+        font-size: 1.02rem;
+        line-height: 1.7;
       }
 
-      .newsletter form {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 0.8rem;
+      .post-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
       }
 
-      .newsletter input {
-        padding: 0.9rem 1.1rem;
-        border-radius: 12px;
-        border: none;
-        font-size: 0.95rem;
+      .post-tags span {
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.85rem;
+        font-weight: 600;
       }
 
-      .newsletter button {
-        border-radius: 12px;
-      }
-
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
+      #view-all:checked ~ .preview #preview-all,
+      #view-project-web:checked ~ .preview #preview-project-web,
+      #view-project-mobile:checked ~ .preview #preview-project-mobile,
+      #view-learning-kotlin:checked ~ .preview #preview-learning-kotlin,
+      #view-learning-js:checked ~ .preview #preview-learning-js,
+      #view-life-travel:checked ~ .preview #preview-life-travel,
+      #view-life-routine:checked ~ .preview #preview-life-routine {
+        display: flex;
       }
 
       footer {
-        padding: 3rem 0 2rem;
-        color: #777;
-        font-size: 0.85rem;
+        margin-top: clamp(3rem, 6vw, 4.5rem);
         text-align: center;
-      }
-
-      @media (max-width: 640px) {
-        nav ul {
-          display: none;
-        }
-
-        .hero {
-          padding-top: 3rem;
-        }
-
-        .newsletter form {
-          grid-template-columns: 1fr;
-        }
+        color: #6c7178;
+        font-size: 0.95rem;
       }
     </style>
   </head>
   <body>
-    <header>
-      <div class="container nav">
-        <a class="logo" href="#">Insightful</a>
-        <nav>
-          <ul>
-            <li><a href="#featured">피드</a></li>
-            <li><a href="#topics">주제</a></li>
-            <li><a href="#newsletter">뉴스레터</a></li>
-            <li><a href="#about">소개</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <div class="container app-shell">
+      <input type="radio" name="preview" id="view-all" checked />
+      <input type="radio" name="preview" id="view-project-web" />
+      <input type="radio" name="preview" id="view-project-mobile" />
+      <input type="radio" name="preview" id="view-learning-kotlin" />
+      <input type="radio" name="preview" id="view-learning-js" />
+      <input type="radio" name="preview" id="view-life-travel" />
+      <input type="radio" name="preview" id="view-life-routine" />
 
-    <main class="container">
-      <section class="hero">
-        <div class="hero-text">
-          <h1>아이디어를 기록하고 공유하는 <br />나만의 공간</h1>
-          <p>
-            매일의 배움, 경험, 인사이트를 한 곳에 정리해 보세요. 기술, 디자인,
-            라이프스타일까지 폭넓은 주제를 다루는 블로그입니다.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#featured">최신 글 보기</a>
-            <a class="btn btn-outline" href="#about">블로그 소개</a>
+      <aside class="sidebar">
+        <div class="profile">
+          <div class="avatar">I</div>
+          <h1>InfDev00</h1>
+          <p>Unity Developer</p>
+          <p>인터랙티브 경험과 게임 개발 인사이트를 공유합니다.</p>
+          <div class="socials">
+            <a href="#">Github</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Resume</a>
           </div>
         </div>
-        <div class="hero-image">
-          <article class="hero-card">
-            <span>이번 주 인기 글</span>
-            <strong>사이드 프로젝트를 지속하는 5가지 루틴</strong>
-            <p>
-              단 20분으로 하루를 정비하는 방법부터, 협업을 위한 체크리스트까지.
-              꾸준함을 만들어 주는 루틴을 소개합니다.
+
+        <nav class="indexer">
+          <h2>폴더 인덱스</h2>
+          <div class="tree-item">
+            <label class="depth-0" for="view-all">전체</label>
+          </div>
+
+          <p class="tree-group">Unity 프로젝트</p>
+          <div class="tree-item">
+            <label class="depth-1" for="view-project-web">VR &amp; AR</label>
+            <label class="depth-2" for="view-project-mobile">모바일 &amp; 콘솔</label>
+          </div>
+
+          <p class="tree-group">테크 노트</p>
+          <div class="tree-item">
+            <label class="depth-1" for="view-learning-kotlin">렌더링 &amp; 그래픽스</label>
+            <label class="depth-1" for="view-learning-js">툴링 &amp; 파이프라인</label>
+          </div>
+
+          <p class="tree-group">개발 라이프</p>
+          <div class="tree-item">
+            <label class="depth-1" for="view-life-travel">컨퍼런스 &amp; 커뮤니티</label>
+            <label class="depth-1" for="view-life-routine">루틴 &amp; 워크플로우</label>
+          </div>
+        </nav>
+      </aside>
+
+      <section class="preview">
+        <header>
+          <h1>최근 포스트</h1>
+          <p>Unity 프로젝트와 기술 실험을 정리하고, 개발 프로세스를 기록합니다.</p>
+        </header>
+
+        <div class="preview-section" id="preview-all">
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Dev Log</span>
+              <span>9 min read</span>
+            </div>
+            <h2 class="post-title">URP로 구축한 실시간 라이팅 파이프라인</h2>
+            <p class="post-excerpt">
+              Unity URP에서 커스텀 라이팅 패스를 설계해 하이브리드 라이트맵을 구현했습니다. 콘솔과 VR
+              빌드를 동시에 고려한 최적화 과정과 툴링 전략을 공유합니다.
             </p>
-            <div class="meta">
-              <span>2024. 2. 12</span>
-              <span>8 min read</span>
+            <div class="post-tags">
+              <span>Unity</span>
+              <span>URP</span>
+              <span>Lighting</span>
             </div>
           </article>
-        </div>
-      </section>
 
-      <section id="featured">
-        <div class="section-title">
-          <h2>추천 글</h2>
-          <a href="#">전체 보기</a>
-        </div>
-        <div class="featured-grid">
-          <article class="card">
-            <span>Productivity</span>
-            <h3>매일 작성하는 데일리 로그의 모든 것</h3>
-            <p>
-              데일리 로그를 통해 하루를 정리하는 방법과, 이를 꾸준히 유지하기 위한
-              실질적인 팁을 모았습니다.
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Prototype Note</span>
+              <span>7 min read</span>
+            </div>
+            <h2 class="post-title">DOTS로 구현한 대규모 전투 AI 시뮬레이터</h2>
+            <p class="post-excerpt">
+              Entity Component System을 활용해 수백 개 유닛을 동시에 제어하는 전투 AI를 만들었습니다.
+              네트워크 동기화와 디버깅 툴링까지 정리했습니다.
             </p>
-            <div class="meta">
-              <span>2024. 1. 28</span>
+            <div class="post-tags">
+              <span>Unity</span>
+              <span>DOTS</span>
+              <span>AI</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Design Log</span>
               <span>5 min read</span>
             </div>
-          </article>
-          <article class="card">
-            <span>Tech</span>
-            <h3>Next.js로 만드는 나만의 위키 시스템</h3>
-            <p>
-              지식 베이스를 구축하기 위한 폴더 구조부터 자동화 스크립트까지, 실전에서
-              활용 가능한 내용을 담았습니다.
+            <h2 class="post-title">XR 인터랙션을 위한 UX 리서치 노트</h2>
+            <p class="post-excerpt">
+              XR Interaction Toolkit으로 프로토타입을 만들며 테스트한 UX 패턴을 정리했습니다. 사용자 피드백과
+              반복 개선 과정에서 얻은 인사이트를 공유합니다.
             </p>
-            <div class="meta">
-              <span>2024. 1. 15</span>
+            <div class="post-tags">
+              <span>XR</span>
+              <span>UX</span>
+              <span>Research</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="preview-section" id="preview-project-web">
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Project Log</span>
               <span>10 min read</span>
             </div>
-          </article>
-          <article class="card">
-            <span>Life</span>
-            <h3>도시 속에서 찾은 아침 루틴</h3>
-            <p>
-              출근 전 30분으로 마음을 다잡는 요가, 저널링, 산책 루틴을 소개합니다.
+            <h2 class="post-title">Quest 3용 MR 퍼즐 게임 프로토타입</h2>
+            <p class="post-excerpt">
+              Mixed Reality 기능을 활용해 현실 오브젝트와 상호작용하는 퍼즐 메커닉을 설계했습니다. 공간
+              앵커링과 핸드 트래킹 튜닝 과정을 자세히 기록했습니다.
             </p>
-            <div class="meta">
-              <span>2024. 2. 2</span>
+            <div class="post-tags">
+              <span>Unity</span>
+              <span>MR</span>
+              <span>Quest3</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Tech Breakdown</span>
               <span>6 min read</span>
+            </div>
+            <h2 class="post-title">AR Foundation으로 만든 실내 내비게이션</h2>
+            <p class="post-excerpt">
+              AR Foundation과 ARKit를 결합해 실내 위치 추적과 경로 가이드를 구현했습니다. UI 피드백과 성능
+              최적화 팁을 정리했습니다.
+            </p>
+            <div class="post-tags">
+              <span>AR</span>
+              <span>ARKit</span>
+              <span>UX</span>
             </div>
           </article>
         </div>
-      </section>
 
-      <section id="topics" style="margin-top: 4rem">
-        <div class="section-title">
-          <h2>주제별 탐색</h2>
+        <div class="preview-section" id="preview-project-mobile">
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Build Note</span>
+              <span>8 min read</span>
+            </div>
+            <h2 class="post-title">모바일 빌드를 위한 Addressables 최적화</h2>
+            <p class="post-excerpt">
+              Addressables을 활용해 iOS와 Android 빌드 크기를 30% 줄인 과정을 설명합니다. 애셋 번들 전략과
+              프로파일링 팁을 단계별로 정리했습니다.
+            </p>
+            <div class="post-tags">
+              <span>Unity</span>
+              <span>Addressables</span>
+              <span>Mobile</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Release Prep</span>
+              <span>5 min read</span>
+            </div>
+            <h2 class="post-title">Steam 데모 빌드를 위한 QA 체크리스트</h2>
+            <p class="post-excerpt">
+              PC 빌드 검수 과정에서 발견한 이슈와 해결책을 정리했습니다. 입력 장치 테스트, 퍼포먼스 캡처,
+              크래시 리포트 자동화 설정을 다룹니다.
+            </p>
+            <div class="post-tags">
+              <span>Steam</span>
+              <span>QA</span>
+              <span>Release</span>
+            </div>
+          </article>
         </div>
-        <div class="category-list">
-          <a class="category" href="#">
-            <strong>기술 &amp; 개발</strong>
-            <span>웹, 앱, 자동화</span>
-          </a>
-          <a class="category" href="#">
-            <strong>생산성</strong>
-            <span>습관, 루틴, 워크플로</span>
-          </a>
-          <a class="category" href="#">
-            <strong>디자인</strong>
-            <span>UI/UX, 브랜드 스토리</span>
-          </a>
-          <a class="category" href="#">
-            <strong>라이프스타일</strong>
-            <span>리추얼, 여행, 취미</span>
-          </a>
+
+        <div class="preview-section" id="preview-learning-kotlin">
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Rendering Note</span>
+              <span>8 min read</span>
+            </div>
+            <h2 class="post-title">Shader Graph로 구현한 Stylized Water</h2>
+            <p class="post-excerpt">
+              Shader Graph와 VFX Graph를 조합해 카툰 스타일 물 쉐이더를 제작했습니다. 노말 맵 블렌딩과
+              스크린 스페이스 반사 표현을 다룹니다.
+            </p>
+            <div class="post-tags">
+              <span>Unity</span>
+              <span>ShaderGraph</span>
+              <span>VFX</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Tech Deep Dive</span>
+              <span>6 min read</span>
+            </div>
+            <h2 class="post-title">HDRP Volumetric Lighting 분석</h2>
+            <p class="post-excerpt">
+              HDRP의 Volumetric 시스템을 커스터마이징하며 배운 포인트를 정리했습니다. 레이트레이싱 옵션과
+              퍼포먼스 최적화 팁을 공유합니다.
+            </p>
+            <div class="post-tags">
+              <span>HDRP</span>
+              <span>Lighting</span>
+            </div>
+          </article>
         </div>
-      </section>
 
-      <section id="newsletter" class="newsletter">
-        <h2>뉴스레터로 최신 글을 받아보세요</h2>
-        <p>
-          한 달에 두 번, 블로그에 올라오는 글과 큐레이션한 콘텐츠를 메일로
-          보내드립니다.
-        </p>
-        <form>
-          <label class="sr-only" for="email">이메일</label>
-          <input id="email" type="email" placeholder="your@email.com" required />
-          <button class="btn btn-primary" type="submit">구독하기</button>
-        </form>
-      </section>
-    </main>
+        <div class="preview-section" id="preview-learning-js">
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Pipeline Log</span>
+              <span>7 min read</span>
+            </div>
+            <h2 class="post-title">SRP 툴링 자동화 파이프라인</h2>
+            <p class="post-excerpt">
+              Scriptable Render Pipeline 설정을 에디터 확장으로 자동화했습니다. 프로젝트 템플릿과 품질 프리셋을
+              한 번에 생성하는 워크플로우를 다룹니다.
+            </p>
+            <div class="post-tags">
+              <span>Unity</span>
+              <span>SRP</span>
+              <span>Editor</span>
+            </div>
+          </article>
 
-    <footer id="about">
-      <div class="container">
-        <p>© 2024 Insightful. 꾸준함을 기록하는 개인 블로그.</p>
-        <p>디지털과 라이프스타일을 넘나드는 깊이 있는 이야기를 전합니다.</p>
-      </div>
-    </footer>
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Workflow</span>
+              <span>6 min read</span>
+            </div>
+            <h2 class="post-title">Unity Editor 확장으로 만드는 레벨 디자인 툴킷</h2>
+            <p class="post-excerpt">
+              커스텀 Inspector와 Scene 툴을 제작해 레벨 디자인 반복 속도를 높였습니다. Gizmo 시각화와 데이터
+              검증 루틴을 소개합니다.
+            </p>
+            <div class="post-tags">
+              <span>Unity</span>
+              <span>Editor</span>
+              <span>Tools</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="preview-section" id="preview-life-travel">
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Conference Note</span>
+              <span>4 min read</span>
+            </div>
+            <h2 class="post-title">GDC 2024에서 얻은 렌더링 인사이트</h2>
+            <p class="post-excerpt">
+              GDC 2024 그래픽스 트랙에서 발표된 최신 렌더링 기법을 요약했습니다. Unity 개발자가 참고하면 좋을
+              세션과 레퍼런스를 정리했습니다.
+            </p>
+            <div class="post-tags">
+              <span>GDC</span>
+              <span>Rendering</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Community</span>
+              <span>3 min read</span>
+            </div>
+            <h2 class="post-title">Unity Korea Meetup 후기</h2>
+            <p class="post-excerpt">
+              서울에서 열린 Unity Korea Meetup에서 들은 사례 발표와 네트워킹 팁을 공유합니다. 커뮤니티를 통해
+              얻은 협업 아이디어를 정리했습니다.
+            </p>
+            <div class="post-tags">
+              <span>Meetup</span>
+              <span>Community</span>
+            </div>
+          </article>
+        </div>
+
+        <div class="preview-section" id="preview-life-routine">
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Workflow</span>
+              <span>5 min read</span>
+            </div>
+            <h2 class="post-title">스크럼과 플레이테스트 캘린더 관리법</h2>
+            <p class="post-excerpt">
+              주간 스크럼과 플레이테스트 세션을 캘린더로 정리해 협업 효율을 높였습니다. 체크리스트와 회고 포맷을
+              공유합니다.
+            </p>
+            <div class="post-tags">
+              <span>Process</span>
+              <span>Playtest</span>
+            </div>
+          </article>
+
+          <article class="post-card">
+            <div class="post-meta">
+              <span>Habit Tracker</span>
+              <span>4 min read</span>
+            </div>
+            <h2 class="post-title">게임잼을 위한 컨디션 관리 루틴</h2>
+            <p class="post-excerpt">
+              게임잼 기간 동안 집중력을 유지하기 위한 수면, 식단, 스트레칭 루틴을 정리했습니다. 팀 커뮤니케이션과
+              피드백 루프 유지 팁도 포함했습니다.
+            </p>
+            <div class="post-tags">
+              <span>GameJam</span>
+              <span>Routine</span>
+            </div>
+          </article>
+        </div>
+
+        <footer>
+          © 2024 InfDev00. Unity 개발 여정을 기록하는 개인 블로그.
+        </footer>
+      </section>
+    </div>
   </body>
 </html>
