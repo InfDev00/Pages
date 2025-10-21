@@ -1,0 +1,141 @@
+{
+  "previewTitle": "최근 포스트",
+  "previewDescription": "Unity 프로젝트와 기술 실험을 정리하고, 개발 프로세스를 기록합니다.",
+  "collections": [
+    {
+      "label": "Unity 프로젝트",
+      "children": [
+        {
+          "id": "unity-projects-vr-ar",
+          "label": "VR & AR",
+          "description": "혼합 현실 프로젝트와 XR UX 연구 노트를 모았습니다.",
+          "directory": "content/unity-projects/vr-ar",
+          "fileOrder": [
+            "quest-3-mr-prototype.html",
+            "ar-foundation-indoor-navigation.html",
+            "xr-ux-research-notes.html"
+          ],
+          "overrides": {
+            "quest-3-mr-prototype": {
+              "description": "Mixed Reality 기능을 활용해 현실 오브젝트와 상호작용하는 퍼즐 메커닉 설계 과정을 기록했습니다."
+            },
+            "ar-foundation-indoor-navigation": {
+              "description": "AR Foundation과 ARKit를 조합해 실내 내비게이션 프로토타입을 구현한 과정을 정리했습니다."
+            },
+            "xr-ux-research-notes": {
+              "description": "XR Interaction Toolkit을 기반으로 테스트한 UX 패턴과 피드백 결과를 모았습니다."
+            }
+          }
+        },
+        {
+          "id": "unity-projects-mobile-console",
+          "label": "모바일 & 콘솔",
+          "description": "멀티 플랫폼 빌드를 준비하며 정리한 Addressables 최적화와 QA 노트입니다.",
+          "directory": "content/unity-projects/mobile-console",
+          "fileOrder": [
+            "addressables-mobile-optimization.html",
+            "steam-demo-qa-checklist.html"
+          ],
+          "overrides": {
+            "addressables-mobile-optimization": {
+              "description": "iOS/Android 빌드 크기를 줄이기 위해 구성한 Addressables 전략을 다룹니다."
+            },
+            "steam-demo-qa-checklist": {
+              "description": "데모 빌드 QA 자동화와 테스트 항목을 정리한 문서입니다."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "테크 노트",
+      "children": [
+        {
+          "id": "tech-rendering-graphics",
+          "label": "렌더링 & 그래픽스",
+          "description": "URP와 HDRP를 활용한 그래픽스 실험과 쉐이더 제작 기록입니다.",
+          "directory": "content/tech-notes/rendering-graphics",
+          "fileOrder": [
+            "urp-real-time-lighting-pipeline.html",
+            "stylized-water-shader.html",
+            "hdrp-volumetric-lighting.html"
+          ],
+          "overrides": {
+            "urp-real-time-lighting-pipeline": {
+              "description": "콘솔과 VR을 동시에 지원하기 위한 URP 라이팅 파이프라인 구축 노트입니다."
+            },
+            "stylized-water-shader": {
+              "description": "카툰 스타일의 물 표현을 구현한 Shader Graph 제작기입니다."
+            },
+            "hdrp-volumetric-lighting": {
+              "description": "HDRP Volumetric 시스템 커스터마이징과 성능 최적화를 정리했습니다."
+            }
+          }
+        },
+        {
+          "id": "tech-tooling-pipeline",
+          "label": "툴링 & 파이프라인",
+          "description": "워크플로우 자동화와 에디터 확장을 통해 구축한 파이프라인 메모입니다.",
+          "directory": "content/tech-notes/tooling-pipeline",
+          "fileOrder": [
+            "dots-battle-ai.html",
+            "srp-tooling-automation.html",
+            "unity-editor-level-design-toolkit.html"
+          ],
+          "overrides": {
+            "dots-battle-ai": {
+              "description": "ECS를 기반으로 한 대규모 전투 AI 시뮬레이션 빌드 노트입니다."
+            },
+            "srp-tooling-automation": {
+              "description": "Scriptable Render Pipeline 설정 자동화를 위한 에디터 툴링입니다."
+            },
+            "unity-editor-level-design-toolkit": {
+              "description": "레벨 디자인 반복 속도를 높이기 위한 에디터 확장 도구 제작기입니다."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "개발 라이프",
+      "children": [
+        {
+          "id": "dev-life-conference-community",
+          "label": "컨퍼런스 & 커뮤니티",
+          "description": "행사 참석과 커뮤니티 활동에서 얻은 인사이트를 정리했습니다.",
+          "directory": "content/dev-life/conference-community",
+          "fileOrder": [
+            "gdc-2024-rendering-insights.html",
+            "unity-korea-meetup.html"
+          ],
+          "overrides": {
+            "gdc-2024-rendering-insights": {
+              "description": "GDC 2024 그래픽스 트랙에서 기록한 핵심 세션 요약입니다."
+            },
+            "unity-korea-meetup": {
+              "description": "Unity Korea Meetup에서 얻은 네트워킹 팁과 사례 공유를 모았습니다."
+            }
+          }
+        },
+        {
+          "id": "dev-life-routine-workflow",
+          "label": "루틴 & 워크플로우",
+          "description": "팀 협업과 컨디션 관리를 돕는 루틴과 체크리스트입니다.",
+          "directory": "content/dev-life/routine-workflow",
+          "fileOrder": [
+            "scrum-playtest-calendar.html",
+            "gamejam-condition-routine.html"
+          ],
+          "overrides": {
+            "scrum-playtest-calendar": {
+              "description": "플레이테스트 일정을 구조화하고 공유하는 방법을 소개합니다."
+            },
+            "gamejam-condition-routine": {
+              "description": "게임잼 기간 집중력을 유지하기 위한 컨디션 관리 팁입니다."
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
