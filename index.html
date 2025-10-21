@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>나의 블로그</title>
+    <style>
+      :root {
+        font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+        color: #222;
+        background-color: #f5f5f7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.75);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .container {
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.2rem 0;
+      }
+
+      .logo {
+        font-weight: 700;
+        font-size: 1.25rem;
+        letter-spacing: -0.01em;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 1.2rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav a {
+        font-size: 0.95rem;
+        font-weight: 500;
+        opacity: 0.75;
+        transition: opacity 0.2s ease;
+      }
+
+      nav a:hover,
+      nav a:focus {
+        opacity: 1;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2.5rem;
+        align-items: center;
+        padding: 4rem 0 3.5rem;
+      }
+
+      .hero-text h1 {
+        font-size: clamp(2.5rem, 4vw, 3.4rem);
+        margin: 0 0 1rem;
+        line-height: 1.2;
+        letter-spacing: -0.04em;
+      }
+
+      .hero-text p {
+        font-size: 1.05rem;
+        color: #555;
+        margin: 0 0 2rem;
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .btn {
+        padding: 0.85rem 1.4rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn-primary {
+        background: #2f68ff;
+        color: #fff;
+        box-shadow: 0 12px 24px rgba(47, 104, 255, 0.28);
+      }
+
+      .btn-outline {
+        background: #fff;
+        border: 1px solid rgba(47, 104, 255, 0.4);
+        color: #2f68ff;
+      }
+
+      .btn:hover,
+      .btn:focus {
+        transform: translateY(-2px);
+      }
+
+      .hero-image {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .hero-image::before {
+        content: "";
+        position: absolute;
+        width: 78%;
+        height: 78%;
+        border-radius: 32px;
+        background: linear-gradient(135deg, rgba(47, 104, 255, 0.18), rgba(255, 255, 255, 0));
+        filter: blur(1px);
+        z-index: 0;
+      }
+
+      .hero-card {
+        position: relative;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 32px;
+        box-shadow: 0 30px 60px rgba(15, 20, 40, 0.08);
+        width: min(340px, 100%);
+        display: grid;
+        gap: 0.75rem;
+        z-index: 1;
+      }
+
+      .hero-card span {
+        font-size: 0.85rem;
+        color: #2f68ff;
+        font-weight: 600;
+      }
+
+      .hero-card strong {
+        font-size: 1.1rem;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.6rem;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-size: 1.7rem;
+        letter-spacing: -0.02em;
+      }
+
+      .section-title a {
+        font-size: 0.9rem;
+        color: #2f68ff;
+        font-weight: 600;
+      }
+
+      .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.8rem;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 24px;
+        padding: 1.8rem;
+        box-shadow: 0 18px 40px rgba(35, 48, 90, 0.08);
+        display: grid;
+        gap: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 26px 52px rgba(35, 48, 90, 0.12);
+      }
+
+      .card span {
+        font-size: 0.82rem;
+        color: #2f68ff;
+        font-weight: 600;
+      }
+
+      .card h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        letter-spacing: -0.01em;
+      }
+
+      .card p {
+        margin: 0;
+        color: #555;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .meta {
+        display: flex;
+        gap: 1.2rem;
+        font-size: 0.85rem;
+        color: #777;
+      }
+
+      .category-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.2rem;
+      }
+
+      .category {
+        background: rgba(47, 104, 255, 0.08);
+        color: #2f68ff;
+        border-radius: 16px;
+        padding: 1.2rem 1.4rem;
+        display: grid;
+        gap: 0.3rem;
+      }
+
+      .category strong {
+        font-size: 1.05rem;
+      }
+
+      .newsletter {
+        margin: 4rem 0 5rem;
+        background: #141927;
+        color: #f8f9ff;
+        border-radius: 32px;
+        padding: clamp(2rem, 5vw, 3.5rem);
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .newsletter h2 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.4rem);
+        letter-spacing: -0.02em;
+      }
+
+      .newsletter p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.75);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .newsletter form {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.8rem;
+      }
+
+      .newsletter input {
+        padding: 0.9rem 1.1rem;
+        border-radius: 12px;
+        border: none;
+        font-size: 0.95rem;
+      }
+
+      .newsletter button {
+        border-radius: 12px;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      footer {
+        padding: 3rem 0 2rem;
+        color: #777;
+        font-size: 0.85rem;
+        text-align: center;
+      }
+
+      @media (max-width: 640px) {
+        nav ul {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 3rem;
+        }
+
+        .newsletter form {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <a class="logo" href="#">Insightful</a>
+        <nav>
+          <ul>
+            <li><a href="#featured">피드</a></li>
+            <li><a href="#topics">주제</a></li>
+            <li><a href="#newsletter">뉴스레터</a></li>
+            <li><a href="#about">소개</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-text">
+          <h1>아이디어를 기록하고 공유하는 <br />나만의 공간</h1>
+          <p>
+            매일의 배움, 경험, 인사이트를 한 곳에 정리해 보세요. 기술, 디자인,
+            라이프스타일까지 폭넓은 주제를 다루는 블로그입니다.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#featured">최신 글 보기</a>
+            <a class="btn btn-outline" href="#about">블로그 소개</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <article class="hero-card">
+            <span>이번 주 인기 글</span>
+            <strong>사이드 프로젝트를 지속하는 5가지 루틴</strong>
+            <p>
+              단 20분으로 하루를 정비하는 방법부터, 협업을 위한 체크리스트까지.
+              꾸준함을 만들어 주는 루틴을 소개합니다.
+            </p>
+            <div class="meta">
+              <span>2024. 2. 12</span>
+              <span>8 min read</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="featured">
+        <div class="section-title">
+          <h2>추천 글</h2>
+          <a href="#">전체 보기</a>
+        </div>
+        <div class="featured-grid">
+          <article class="card">
+            <span>Productivity</span>
+            <h3>매일 작성하는 데일리 로그의 모든 것</h3>
+            <p>
+              데일리 로그를 통해 하루를 정리하는 방법과, 이를 꾸준히 유지하기 위한
+              실질적인 팁을 모았습니다.
+            </p>
+            <div class="meta">
+              <span>2024. 1. 28</span>
+              <span>5 min read</span>
+            </div>
+          </article>
+          <article class="card">
+            <span>Tech</span>
+            <h3>Next.js로 만드는 나만의 위키 시스템</h3>
+            <p>
+              지식 베이스를 구축하기 위한 폴더 구조부터 자동화 스크립트까지, 실전에서
+              활용 가능한 내용을 담았습니다.
+            </p>
+            <div class="meta">
+              <span>2024. 1. 15</span>
+              <span>10 min read</span>
+            </div>
+          </article>
+          <article class="card">
+            <span>Life</span>
+            <h3>도시 속에서 찾은 아침 루틴</h3>
+            <p>
+              출근 전 30분으로 마음을 다잡는 요가, 저널링, 산책 루틴을 소개합니다.
+            </p>
+            <div class="meta">
+              <span>2024. 2. 2</span>
+              <span>6 min read</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="topics" style="margin-top: 4rem">
+        <div class="section-title">
+          <h2>주제별 탐색</h2>
+        </div>
+        <div class="category-list">
+          <a class="category" href="#">
+            <strong>기술 &amp; 개발</strong>
+            <span>웹, 앱, 자동화</span>
+          </a>
+          <a class="category" href="#">
+            <strong>생산성</strong>
+            <span>습관, 루틴, 워크플로</span>
+          </a>
+          <a class="category" href="#">
+            <strong>디자인</strong>
+            <span>UI/UX, 브랜드 스토리</span>
+          </a>
+          <a class="category" href="#">
+            <strong>라이프스타일</strong>
+            <span>리추얼, 여행, 취미</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="newsletter" class="newsletter">
+        <h2>뉴스레터로 최신 글을 받아보세요</h2>
+        <p>
+          한 달에 두 번, 블로그에 올라오는 글과 큐레이션한 콘텐츠를 메일로
+          보내드립니다.
+        </p>
+        <form>
+          <label class="sr-only" for="email">이메일</label>
+          <input id="email" type="email" placeholder="your@email.com" required />
+          <button class="btn btn-primary" type="submit">구독하기</button>
+        </form>
+      </section>
+    </main>
+
+    <footer id="about">
+      <div class="container">
+        <p>© 2024 Insightful. 꾸준함을 기록하는 개인 블로그.</p>
+        <p>디지털과 라이프스타일을 넘나드는 깊이 있는 이야기를 전합니다.</p>
+      </div>
+    </footer>
+  </body>
+</html>
