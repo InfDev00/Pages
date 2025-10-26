@@ -1,0 +1,9 @@
+name: Auto CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubunto-latest
